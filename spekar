@@ -1,0 +1,27 @@
+// SpeakerComponent.js
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const SpeakerComponent = () => {
+  const [speakers, setSpeakers] = useState([]);
+
+  useEffect(() => {
+    // Fetch speakers from the API
+    axios.get('/api/speakers')
+      .then(response => setSpeakers(response.data))
+      .catch(error => console.error('Error fetching speakers', error));
+  }, []);
+
+  return (
+    <div>
+      <h2>Speaker Management</h2>
+      <ul>
+        {speakers.map(speaker => (
+          <li key={speaker.id}>{speaker.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default SpeakerComponent;
